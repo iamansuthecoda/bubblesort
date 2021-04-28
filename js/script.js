@@ -3,26 +3,24 @@ var msg = document.getElementById('msg');
 
 function triggerclick() {
     msg.innerText = null;
-    sort(raw_numbers.innerText.replace(/\s/g, '').split(","));
+    result(sort(strToFlo(raw_numbers.innerText.replace(/\s/g, '').split(","))));
 }
 
 raw_numbers.addEventListener('keypress', () => {
     raw_numbers.innerText.replace(/\s/g, '').split(',').forEach((e) => {
-        if (/^[0-9\s.,]*$/.test(e)) {
-            msg.innerText = null;
-            document.getElementById('btn').disabled = false;
-        } else {
+        if (!/^[0-9\s.,-]*$/.test(e)) {
             msg.innerText = "Please Enter Numbers";
             document.getElementById('btn').disabled = true;
+        } else {
+            msg.innerText = null;
+            document.getElementById('btn').disabled = false;
         }
+        if (raw_numbers.innerText == "")
+            msg.innerText = null;
     })
 });
 
 function sort(arr) {
-    //converting from string to float
-    arr = strToFlo(arr);
-
-    //sorting
     var i, j;
     var len = arr.length;
     var isSwapped = false;
@@ -41,8 +39,7 @@ function sort(arr) {
         }
     }
 
-    //Displaying result
-    result(arr);
+    return arr;
 }
 
 function strToFlo(arr){
